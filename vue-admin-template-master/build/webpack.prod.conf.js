@@ -62,7 +62,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         removeAttributeQuotes: true
         // more options:
         // https://github.com/kangax/html-minifier#options-quick-reference
-      }
+      },
       // default sort mode uses toposort which cannot handle cyclic deps
       // in certain cases, and in webpack 4, chunk order in HTML doesn't
       // matter anyway

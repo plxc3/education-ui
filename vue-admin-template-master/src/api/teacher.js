@@ -37,5 +37,11 @@ export default {
       data:teacher,
       method:"put"
     })
+  },
+  findall(){
+    return request({
+      url:"/service/teacher/findall",
+      method:"get"
+    })
   }
 }

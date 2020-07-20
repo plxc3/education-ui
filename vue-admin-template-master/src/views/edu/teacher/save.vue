@@ -46,7 +46,7 @@
       </el-form-item>
 
       <el-form-item label="头像测试">
-        <img :src="teacher.avatar" class="avatar"/>
+        <img :src="teacher.avatar" class="avatar" alt="未上传"/>
       </el-form-item>
 
       <el-form-item label="讲师名字">
@@ -86,7 +86,8 @@
     data() {
       return {
         teacher: {
-          avatar:"https://plxc.oss-cn-chengdu.aliyuncs.com/2020/07/09/c96c926e532f4025a0f3496eb01f5ad41.jpg"
+          //没有上传头像时默认显示的头像
+          avatar:"https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png"
         },
         dialogImageUrl: '',
         dialogVisible: false,
