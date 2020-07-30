@@ -45,6 +45,24 @@
           <el-radio label="false">默认</el-radio>
         </el-radio-group>
       </el-form-item>
+
+      <el-form-item label="视频添加">
+        <el-upload
+          class="upload-demo"
+          :on-success="handleAvatarSuccess"
+          action="http://localhost:9001/vod/video/uploadVideo"
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :before-remove="beforeRemove"
+          multiple
+          :limit="1"
+          :on-exceed="handleExceed"
+          >
+          <el-button size="small" type="primary">点击上传</el-button>
+          <div slot="tip" class="el-upload__tip">只能上传mp4文件</div>
+        </el-upload>
+      </el-form-item>
+
     </el-form>
 
     <span slot="footer" class="dialog-footer">
@@ -131,6 +149,7 @@
 <script>
   import chapterApi from "@/api/chapter"
   import videoApi from "@/api/video"
+  import vodApi from "@/api/vod"
     export default {
         name: "chapter",
       watch: {
@@ -170,6 +189,7 @@
               courseId:'',
               chapterId:''
             },
+
           }
         },
       methods:{
@@ -261,7 +281,54 @@
               this.$message("删除成功")
               this.getChapterVideoList(this.courseId)
             })
+        },
+        /**
+         * 视频上传
+         */
+        handleRemove(file, fileList) {
+          console.log(file, fileList);
+        },
+        handlePreview(file) {
+          console.log(file);
+        },
+        handleExceed(files, fileList) {
+          this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+        },
+        beforeRemove(file, fileList) {
+          return this.$confirm(`确定移除 ${ file.name }？`);
+          this.remove(this.video.videoSourceId)
+        },
+        handleAvatarSuccess(res, file) {
+         this.$message({
+           message:"视频上传成功",
+           type:"success"
+         }),
+           console.log(res),
+           console.log(file)
+          this.video.videoSourceId=res.data.videoId
+          this.video.videoOriginalName = file.name;
+        },
+        /**
+         * 视频移除
+         */
+        removeVideo(id){
+          vodApi.reomoveVideo(id)
+            .then(res=>{
+              this.$message("success")
+            })
         }
+        // beforeAvatarUpload(file) {
+        //   const isJPG = file.type === 'image/jpeg';
+        //   const isLt2M = file.size / 1024 / 1024 < 2;
+        //
+        //   if (!isJPG) {
+        //     this.$message.error('上传头像图片只能是 JPG 格式!');
+        //   }
+        //   if (!isLt2M) {
+        //     this.$message.error('上传头像图片大小不能超过 2MB!');
+        //   }
+        //   return isJPG && isLt2M;
+        // }
       },
       created(){
           if(this.$route.params.id&&this.$route.params){
