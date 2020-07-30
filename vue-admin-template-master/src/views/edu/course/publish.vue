@@ -64,7 +64,6 @@
                 type:"success"
               })
             })
-
         },
         getpublishInfo(courseId){
 
@@ -74,6 +73,7 @@
               this.publishInfo=res.data.publishInfo
             })
         }
+
       },
       created(){
           if(this.$route.params&&this.$route.params.id){

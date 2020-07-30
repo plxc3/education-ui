@@ -63,6 +63,7 @@
   import teacherApi from "@/api/teacher.js"
   import subjiectApi from "@/api/subject.js"
   import Tinymce from '@/components/Tinymce'
+  import testApi from '@/api/test.js'
     export default {
         name: "info",
       components:{

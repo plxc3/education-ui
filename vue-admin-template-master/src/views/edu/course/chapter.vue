@@ -246,7 +246,8 @@
         },
         /**
          * 删除章节
-         */remove(id) {
+         */
+        remove(id) {
           chapterApi.deleteChapter(id)
           this.getChapterVideoList(this.courseId)
         },
@@ -287,6 +288,7 @@
          */
         handleRemove(file, fileList) {
           console.log(file, fileList);
+          this.removeVideo(this.video.videoSourceId)
         },
         handlePreview(file) {
           console.log(file);
@@ -295,8 +297,8 @@
           this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
         },
         beforeRemove(file, fileList) {
+          console.log(this.video.videoSourceId)
           return this.$confirm(`确定移除 ${ file.name }？`);
-          this.remove(this.video.videoSourceId)
         },
         handleAvatarSuccess(res, file) {
          this.$message({
